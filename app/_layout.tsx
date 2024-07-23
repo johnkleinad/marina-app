@@ -1,37 +1,64 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+// import { useFonts } from 'expo-font';
+// import { Stack } from 'expo-router';
+// import * as SplashScreen from 'expo-splash-screen';
+// import { useEffect } from 'react';
+// import 'react-native-reanimated';
+import { StyleSheet, Platform, StatusBar, SafeAreaView } from "react-native";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+// import { useColorScheme } from '@/hooks/useColorScheme';
+// SplashScreen.preventAutoHideAsync();
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+// export default function RootLayout() {
+//   const colorScheme = useColorScheme();
+//   const [loaded] = useFonts({
+//     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+//   });
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+//   useEffect(() => {
+//     if (loaded) {
+//       SplashScreen.hideAsync();
+//     }
+//   }, [loaded]);
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+//   if (!loaded) {
+//     return null;
+//   }
 
-  if (!loaded) {
-    return null;
-  }
+//   return (
+//     <SafeAreaView style={style.AndroidSafeArea}>
+//       <StatusBar
+//         backgroundColor="#FAFAFA"
+//         barStyle="dark-content"
+//       />
+//       <Stack>
+//         <Stack.Screen name="index" options={{ headerShown: false }} />
+//       </Stack>
+//     </SafeAreaView>
+//   );
+// }
+// const style = StyleSheet.create({
+//   AndroidSafeArea: {
+//     flex: 1,
+//     backgroundColor: "#FAFAFA",
+//     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+//     marginBottom: Platform.OS === "android" ? 0 : -25,
+//   }
+// });
 
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
-  );
+import { Stack } from 'expo-router/stack';
+
+export default function Layout() {
+  return <>
+    <Stack >
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+    </Stack>
+  </>
 }
+const style = StyleSheet.create({
+  AndroidSafeArea: {
+    flex: 1,
+    backgroundColor: "#FAFAFA",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    marginBottom: Platform.OS === "android" ? 0 : -25,
+  }
+});

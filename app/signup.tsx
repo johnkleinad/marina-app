@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Text, ScrollView, StatusBar } from 'react-native';
 import CustomInput from '../components/CustomInput';
 import CustomSelect from '../components/CustomSelect';
+import countriesData from '../assets/countries.json';
 
 const Signup = () => {
     const [name, setName] = useState('');
@@ -49,11 +50,13 @@ const Signup = () => {
                         type='number'
                         placeholder='Age'
                         onChangeText={setAge}
+                        maxLength={2}
                     />
                     <CustomInput
                         type='number'
                         placeholder='Phone number'
                         onChangeText={setPhoneNumber}
+                        maxLength={10}
                     />
                 </View>
                 <CustomSelect
@@ -63,10 +66,10 @@ const Signup = () => {
                     onValueChange={setIdentify}
                 />
                 <CustomSelect
-                    placeholder="Select an option"
-                    options={['Option 1', 'Option 2', 'Option 3']}
-                    selectedValue={selectedOption}
-                    onValueChange={setSelectedOption}
+                    placeholder="Country"
+                    options={countriesData.countries.map(country => country.name)}
+                    selectedValue={country}
+                    onValueChange={setCountry}
                 />
                 <Button title="Signup" onPress={handleSignup} />
             </ScrollView>

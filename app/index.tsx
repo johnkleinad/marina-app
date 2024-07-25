@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Button, Image, StyleSheet, Text, View } from 'react-native';
+import { Button, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Link } from 'expo-router';
 
 export default function index() {
     return (
@@ -27,11 +28,13 @@ export default function index() {
                                     Sign Up
                                 </Text>
                             </View>
-                            <View style={[styles.buttonsStyle, { borderWidth: 1, borderBlockColor: '#FFFDFD' }]}>
-                                <Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }}>
-                                    Login
-                                </Text>
-                            </View>
+                            <Link asChild href={'/signup'}>
+                                <Pressable style={[styles.buttonsStyle, { borderWidth: 1, borderBlockColor: '#FFFDFD' }]}>
+                                    <Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }}>
+                                        Login
+                                    </Text>
+                                </Pressable>
+                            </Link>
                         </View>
                     </View>
                 </LinearGradient>

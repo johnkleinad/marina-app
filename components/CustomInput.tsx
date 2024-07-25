@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, TextInput, Animated, StyleSheet, Text, TextInputProps, KeyboardTypeOptions, TouchableOpacity } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons'; // Usando expo/vector-icons
+import { MaterialIcons } from '@expo/vector-icons';
 
 interface CustomInputProps extends TextInputProps {
     placeholder: string;
     type: 'text' | 'email' | 'password' | 'number';
     onChangeText: (text: string) => void;
+    maxLength?: number;
 }
 
-const CustomInput: React.FC<CustomInputProps> = ({ placeholder, type, onChangeText, ...props }) => {
+const CustomInput: React.FC<CustomInputProps> = ({ placeholder, type, onChangeText, maxLength, ...props }) => {
     const [isFocused, setIsFocused] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-    const placeholderPosition = useRef(new Animated.Value(10)).current; // posición inicial más abajo
+    const placeholderPosition = useRef(new Animated.Value(10)).current;
     const placeholderScale = useRef(new Animated.Value(1)).current;
 
     useEffect(() => {
@@ -47,6 +48,25 @@ const CustomInput: React.FC<CustomInputProps> = ({ placeholder, type, onChangeTe
         return 'default';
     };
 
+    const handleChangeText = (text: string) => {
+        if (type === 'number') {
+            // Filtrar caracteres no numéricos
+            const numericText = text.replace(/[^0-9]/g, '');
+            if (maxLength) {
+                if (numericText.length <= maxLength) {
+                    setInputValue(numericText);
+                    onChangeText(numericText);
+                }
+            } else {
+                setInputValue(numericText);
+                onChangeText(numericText);
+            }
+        } else {
+            setInputValue(text);
+            onChangeText(text);
+        }
+    };
+
     return (
         <View style={styles.container}>
             <Animated.Text
@@ -67,10 +87,7 @@ const CustomInput: React.FC<CustomInputProps> = ({ placeholder, type, onChangeTe
                     style={styles.input}
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
-                    onChangeText={(text) => {
-                        setInputValue(text);
-                        onChangeText(text);
-                    }}
+                    onChangeText={handleChangeText}
                     value={inputValue}
                     secureTextEntry={type === 'password' && !isPasswordVisible}
                     keyboardType={getKeyboardType()}
@@ -80,8 +97,8 @@ const CustomInput: React.FC<CustomInputProps> = ({ placeholder, type, onChangeTe
                     <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
                         <MaterialIcons
                             name={isPasswordVisible ? 'visibility-off' : 'visibility'}
-                            size={24}
-                            color="#aaa" // Mismo color que el placeholder
+                            size={20}
+                            color="#aaa"
                             style={styles.icon}
                         />
                     </TouchableOpacity>
@@ -94,7 +111,7 @@ const CustomInput: React.FC<CustomInputProps> = ({ placeholder, type, onChangeTe
 const styles = StyleSheet.create({
     container: {
         borderBottomWidth: 1,
-        borderBottomColor: '#000',
+        borderBottomColor: '#A9A4A4',
         paddingBottom: 5,
         marginBottom: 20,
         position: 'relative',

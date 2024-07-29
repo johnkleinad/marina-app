@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Text, ScrollView, StatusBar } from 'react-native';
+import { View, Button, StyleSheet, Text, ScrollView, StatusBar, Platform } from 'react-native';
 import CustomInput from '../components/CustomInput';
-import CustomSelect from '../components/CustomSelect';
+import CustomSelectIos from '../components/CustomSelect.ios';
+import CustomSelectAndroid from '../components/CustomSelect.android';
 import countriesData from '../assets/countries.json';
+import CustomButton from '../components/CustomButton';
 
 const Signup = () => {
     const [name, setName] = useState('');
@@ -19,7 +21,9 @@ const Signup = () => {
     const handleSignup = () => {
         // Implementar lógica de registro de usuario aquí
     };
-
+    const handleNavigate = () => {
+        // Implementar lógica de navegación aquí
+    };
     return (
         <View style={{ flex: 1 }}>
             <StatusBar barStyle="dark-content" backgroundColor="#fff" />
@@ -59,7 +63,22 @@ const Signup = () => {
                         maxLength={10}
                     />
                 </View>
-                <CustomSelect
+                {Platform.OS === 'ios' ? (
+                    <CustomSelectIos
+                        placeholder="I identify as"
+                        options={['Male', 'Female', 'Non-binary', 'Prefer not to say']}
+                        selectedValue={identify}
+                        onValueChange={setIdentify}
+                    />
+                ) : (
+                    <CustomSelectAndroid
+                        placeholder="I identify as"
+                        options={['Male', 'Female', 'Non-binary', 'Prefer not to say']}
+                        selectedValue={identify}
+                        onValueChange={setIdentify}
+                    />
+                )}
+                {/* <CustomSelect
                     placeholder="I identify as"
                     options={['Male', 'Female', 'Non-binary', 'Prefer not to say']}
                     selectedValue={identify}
@@ -70,8 +89,18 @@ const Signup = () => {
                     options={countriesData.countries.map(country => country.name)}
                     selectedValue={country}
                     onValueChange={setCountry}
-                />
-                <Button title="Signup" onPress={handleSignup} />
+                /> */}
+                <View style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
+                    <CustomButton type="gradient" title="Signup" onPress={handleSignup} />
+                    <Text style={{
+                        fontSize: 14,
+                        paddingBottom: 10,
+                    }}>Already have an Account?</Text>
+                    <CustomButton type="transparent" title="Log in" onPress={handleNavigate} color="#FF004F" />
+                </View>
             </ScrollView>
         </View>
     );
@@ -96,13 +125,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         gap: 30,
-    },
-    input: {
-        marginBottom: 12,
-        padding: 8,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 4,
     },
 });
 

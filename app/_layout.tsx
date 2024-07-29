@@ -45,13 +45,11 @@ import { StyleSheet, Platform, StatusBar, SafeAreaView } from "react-native";
 //   }
 // });
 
-import { Stack } from 'expo-router/stack';
+import { Slot } from 'expo-router';
 
 export default function Layout() {
   return <>
-    <Stack >
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-    </Stack>
+    <Slot />
   </>
 }
 const style = StyleSheet.create({

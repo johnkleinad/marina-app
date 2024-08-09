@@ -23,13 +23,15 @@ export default function index() {
                             </Text>
                         </View>
                         <View style={{ display: 'flex', marginTop: 42, gap: 30, width: '100%', maxWidth: 350, justifyContent: 'center' }}>
-                            <View style={[styles.buttonsStyle, { backgroundColor: 'white', marginRight: 10 }]}>
-                                <Text style={{ textAlign: 'center', color: '#000', fontSize: 22 }}>
-                                    Sign Up
-                                </Text>
-                            </View>
-                            <Link asChild href={'/signup'}>
-                                <Pressable style={[styles.buttonsStyle, { borderWidth: 1, borderBlockColor: '#FFFDFD' }]}>
+                            <Link asChild href={'/signup '} style={[styles.buttonsStyle, { backgroundColor: 'white', marginRight: 10 }]}>
+                                <Pressable>
+                                    <Text style={{ textAlign: 'center', color: '#000', fontSize: 22 }}>
+                                        Sign Up
+                                    </Text>
+                                </Pressable>
+                            </Link>
+                            <Link asChild href={'/signup '} style={[styles.buttonsStyle, { borderWidth: 1, borderBlockColor: '#FFFDFD' }]}>
+                                <Pressable>
                                     <Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }}>
                                         Login
                                     </Text>

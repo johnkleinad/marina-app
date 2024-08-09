@@ -78,18 +78,21 @@ const Signup = () => {
                         onValueChange={setIdentify}
                     />
                 )}
-                {/* <CustomSelect
-                    placeholder="I identify as"
-                    options={['Male', 'Female', 'Non-binary', 'Prefer not to say']}
-                    selectedValue={identify}
-                    onValueChange={setIdentify}
-                />
-                <CustomSelect
-                    placeholder="Country"
-                    options={countriesData.countries.map(country => country.name)}
-                    selectedValue={country}
-                    onValueChange={setCountry}
-                /> */}
+                {Platform.OS === 'ios' ? (
+                    <CustomSelectIos
+                        placeholder="Country"
+                        options={countriesData.countries.map(country => country.name)}
+                        selectedValue={country}
+                        onValueChange={setCountry}
+                    />
+                ) : (
+                    <CustomSelectAndroid
+                        placeholder="Country"
+                        options={countriesData.countries.map(country => country.name)}
+                        selectedValue={country}
+                        onValueChange={setCountry}
+                    />
+                )}
                 <View style={{
                     justifyContent: 'center',
                     alignItems: 'center',

@@ -191,13 +191,13 @@ const styles = StyleSheet.create({
     },
     pickerContainer: {
         backgroundColor: 'white',
-        paddingTop: 10,
+        paddingVertical: 30,
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
-        shadowRadius: 3,
+        shadowRadius: 10,
         elevation: 5,
     },
     doneButton: {
